@@ -150,7 +150,7 @@ export const CoffeesSelected = styled.div`
   padding: 2.5rem;
 
   width: 448px;
-  height: 498px;
+  min-height: 498px;
   background-color: ${(props) => props.theme.base["base-card"]};
 
   border-radius: 6px 44px;
