@@ -32,7 +32,7 @@ export function CoffeesContextProvider({ children }: CoffeesContextProviderProps
       category: ["Tradicional"],
       description: "O tradicional café feito com água quente e grãos moídos",
       price: 9.99,
-      amount: 99,
+      amount: 1,
     },
     {
       id: "2",
@@ -41,7 +41,7 @@ export function CoffeesContextProvider({ children }: CoffeesContextProviderProps
       category: ["Tradicional"],
       description: "Expresso diluído, menos intenso que o tradicional",
       price: 9.99,
-      amount: 41,
+      amount: 1,
     },
     {
       id: "3",
@@ -50,7 +50,7 @@ export function CoffeesContextProvider({ children }: CoffeesContextProviderProps
       category: ["Tradicional"],
       description: "Café expresso tradicional com espuma cremosa",
       price: 9.99,
-      amount: 32,
+      amount: 1,
     },
     {
       id: "4",
@@ -59,7 +59,7 @@ export function CoffeesContextProvider({ children }: CoffeesContextProviderProps
       category: ["Tradicional", "Gelado"],
       description: "Café expresso tradicional com espuma cremosa",
       price: 9.99,
-      amount: 8,
+      amount: 1,
     },
   ]);
 
