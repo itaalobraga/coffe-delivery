@@ -72,6 +72,7 @@ export function Checkout() {
   useEffect(() => {
     if (!cart.length) {
       navigate("/");
+      localStorage.removeItem("@COFFEE")
     }
   }, [cart.length]);
 

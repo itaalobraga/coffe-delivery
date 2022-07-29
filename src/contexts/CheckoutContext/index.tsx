@@ -38,9 +38,12 @@ export function CheckoutContextProvider({ children }: CoffeesContextProviderProp
   function addCoffeeToCart(coffee: Coffee) {
     setCart((state) => {
       const existingCoffe = state.find((item) => item.id === coffee.id);
+      const existingCoffeLocal = local.find((item) => item.id === coffee.id);
 
       if (!existingCoffe) {
         return [...state, coffee];
+      } else if (existingCoffeLocal) {
+        return state;
       }
 
       return state;

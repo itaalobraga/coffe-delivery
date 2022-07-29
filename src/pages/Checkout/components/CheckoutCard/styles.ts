@@ -56,7 +56,7 @@ export const InputArea = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  padding: 8px;
+  padding: 4px;
   gap: 4px;
 
   width: 72px;
@@ -77,6 +77,10 @@ export const InputArea = styled.div`
     color: ${(props) => props.theme.base["base-title"]};
 
     font-weight: 500;
+
+    &:focus {
+      border-bottom: 1px solid ${(props) => props.theme.product.purple};
+    }
 
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;

@@ -148,6 +148,10 @@ export const CoffeInputArea = styled.div`
 
     font-weight: 500;
 
+    &:focus {
+      border-bottom: 1px solid ${(props) => props.theme.product.purple};
+    }
+
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
