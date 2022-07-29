@@ -68,14 +68,14 @@ export function Form() {
         <input
           type="text"
           placeholder="Bairro"
-          style={{ maxWidth: "276px", width: "100%" }}
+          style={{ minWidth: "276px", width: "100%" }}
           {...register("bairro")}
         />
         <input type="text" placeholder="Cidade" {...register("cidade")} />
         <InputMask
           type="text"
           placeholder="UF"
-          style={{ maxWidth: "60px", width: "100%" }}
+          style={{ minWidth: "60px", width: "100%" }}
           mask={"aa"}
           maskPlaceholder={null}
           {...register("uf")}

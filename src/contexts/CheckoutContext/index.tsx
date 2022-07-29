@@ -37,7 +37,7 @@ export function CheckoutContextProvider({ children }: CoffeesContextProviderProp
 
   function addCoffeeToCart(coffee: Coffee) {
     setCart((state) => {
-      const existingCoffe = state.find((item) => item === coffee);
+      const existingCoffe = state.find((item) => item.id === coffee.id);
 
       if (!existingCoffe) {
         return [...state, coffee];
@@ -79,9 +79,9 @@ export function CheckoutContextProvider({ children }: CoffeesContextProviderProp
     );
   }
 
-  const allPrices = cart.map((item) => item.amount * item.price);
-
-  const totalItems = allPrices.reduce((prev, next) => prev + next, 0);
+  const totalItems = cart
+    .map((item) => item.amount * item.price)
+    .reduce((total, item) => total + item, 0);
 
   return (
     <CheckoutContext.Provider

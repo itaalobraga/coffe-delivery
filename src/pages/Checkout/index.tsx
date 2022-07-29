@@ -1,5 +1,5 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "phosphor-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "./components/Form";
 import {
   CheckoutContainer,
@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { CheckoutCard } from "./components/CheckoutCard";
 import { useCheckout } from "../../contexts/CheckoutContext";
+import { useNavigate } from "react-router-dom";
 
 type FormData = zod.infer<typeof FormValidationSchema>;
 
@@ -66,7 +67,13 @@ export function Checkout() {
 
   const deliveryPrice = 3.5;
 
-  console.log("formState.errors => ", formState.errors);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!cart.length) {
+      navigate("/");
+    }
+  }, [cart.length]);
 
   return (
     <CheckoutContainer onSubmit={handleSubmit(handleSubmitForm)}>

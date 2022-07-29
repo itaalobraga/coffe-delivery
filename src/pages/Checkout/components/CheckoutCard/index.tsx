@@ -17,7 +17,7 @@ type CheckoutCardProps = {
 };
 
 export function CheckoutCard({ item }: CheckoutCardProps) {
-  const ItemPriceAmount = item.amount * item.price
+  const ItemPriceAmount = item.amount * item.price;
 
   const convertedPrice = new Intl.NumberFormat("pt-BR", {
     style: "currency",

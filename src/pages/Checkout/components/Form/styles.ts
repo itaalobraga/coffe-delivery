@@ -46,4 +46,15 @@ export const FormContainer = styled.div`
     border: 1px solid #e6e5e5;
     border-radius: 4px;
   }
+
+  @media (max-width: 768px) {
+    & input {
+      width: 100%;
+    }
+
+    & div {
+      width: 100%;
+      flex-direction: column;
+    }
+  }
 `;

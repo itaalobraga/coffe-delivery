@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { useCheckout } from "../CheckoutContext";
 
 type Coffee = {
   id: string;

@@ -9,13 +9,27 @@ export const CheckoutContainer = styled.form`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  & > div:first-child {
+    max-width: 40rem;
+  }
+
+  & > div:last-child {
+    max-width: 28rem;
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 export const CheckoutForm = styled.div`
   padding: 2.5rem;
 
-  width: 640px;
-  height: 372px;
+  width: 100%;
+  min-height: 23.25rem;
 
   background-color: ${(props) => props.theme.base["base-card"]};
 
@@ -55,8 +69,8 @@ export const CheckoutForm = styled.div`
 export const PaymentMethods = styled.div`
   padding: 2.5rem;
 
-  width: 640px;
-  height: 207px;
+  width: 100%;
+  min-height: 12.938rem;
 
   background-color: ${(props) => props.theme.base["base-card"]};
 
@@ -94,9 +108,17 @@ export const PaymentMethods = styled.div`
 export const Methods = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 0.75rem;
   align-items: center;
 
+  width: 100%;
+
   margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 type MethodProps = {
@@ -149,8 +171,8 @@ export const Method = styled.button<MethodProps>`
 export const CoffeesSelected = styled.div`
   padding: 2.5rem;
 
-  width: 448px;
-  min-height: 498px;
+  width: 100%;
+  min-height: 31.125rem;
   background-color: ${(props) => props.theme.base["base-card"]};
 
   border-radius: 6px 44px;
@@ -159,7 +181,8 @@ export const CoffeesSelected = styled.div`
     & > button {
       padding: 12px 8px;
 
-      width: 368px;
+      max-width: 368px;
+      width: 100%;
       height: 46px;
 
       background: #dbac2c;

@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const CoffeesSelectedInfo = styled.div`
   display: flex;
-
+  align-items: flex-start;
+  
   padding-bottom: 24px;
   margin-bottom: 24px;
 

@@ -14,6 +14,7 @@ import { Featured } from "./components/Featured";
 import { ReactNode } from "react";
 import { CoffeeCard } from "./components/CoffeeCard";
 import { useCoffees } from "../../contexts/CoffeesContext";
+import { useCheckout } from "../../contexts/CheckoutContext";
 
 type Features = {
   icon: ReactNode;
