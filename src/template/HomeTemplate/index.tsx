@@ -3,12 +3,11 @@ import {
   Header,
   HomeTemplateContainer,
   Wrapper,
-  Location,
   CartButton,
   Content,
 } from "./styles";
 
-import { MapPin, ShoppingCart } from "phosphor-react";
+import { ShoppingCart } from "phosphor-react";
 
 import Logo from "../../assets/logo.svg";
 
@@ -26,10 +25,6 @@ export function HomeTemplate() {
           <img src={Logo} alt="" />
         </NavLink>
         <Wrapper isDisable={!totalItemsCart}>
-          <Location>
-            <MapPin size={22} weight="fill" />
-            <h1>Porto Alegre, RS</h1>
-          </Location>
           <NavLink to={"/checkout"}>
             <CartButton
               type="button"

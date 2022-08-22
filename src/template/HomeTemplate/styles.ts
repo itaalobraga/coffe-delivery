@@ -34,7 +34,7 @@ type WrapperProps = {
 
 export const Wrapper = styled.div<WrapperProps>`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 
   width: 12.063rem;
@@ -45,28 +45,6 @@ export const Wrapper = styled.div<WrapperProps>`
     css`
       pointer-events: none;
     `}
-`;
-
-export const Location = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 0.5rem;
-
-  background-color: ${(props) => props.theme.product["purple-light"]};
-  border-radius: 6px;
-
-  & > svg {
-    color: ${(props) => props.theme.product["purple-dark"]};
-  }
-
-  & > h1 {
-    font-size: ${(props) => props.theme.font.size[14]};
-    font-weight: 500;
-
-    color: ${(props) => props.theme.product["purple-dark"]};
-  }
 `;
 
 type CartButtonProps = {

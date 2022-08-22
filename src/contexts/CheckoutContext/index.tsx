@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { FormSchemaData, PaymentMethods } from "../../pages/Checkout";
 
 type Coffee = {
   id: string;
@@ -11,13 +12,16 @@ type Coffee = {
 };
 
 interface CheckoutContextData {
+  formData: FormSchemaData & { paymentMethod: PaymentMethods };
   cart: Coffee[];
+  setCart: React.Dispatch<React.SetStateAction<Coffee[]>>;
   totalItems: number;
   addCoffeeToCart: (coffee: Coffee) => void;
   removeCoffe: (coffeeId: string) => void;
   incrementAmountCoffe: (coffeeId: string) => void;
   decrementAmountCoffe: (coffeeId: string) => void;
   handleAmountCoffe: (coffeeId: string, value: string) => void;
+  handleFormData: (data: FormSchemaData & { paymentMethod: PaymentMethods }) => void;
 }
 
 interface CoffeesContextProviderProps {
@@ -27,23 +31,24 @@ interface CoffeesContextProviderProps {
 export const CheckoutContext = createContext({} as CheckoutContextData);
 
 export function CheckoutContextProvider({ children }: CoffeesContextProviderProps) {
-  const local: Coffee[] = JSON.parse(localStorage.getItem("@COFFEE") as string);
+  const [cart, setCart] = useState<Coffee[]>([]);
 
-  const [cart, setCart] = useState<Coffee[]>(local || []);
+  const [formData, setFormData] = useState(
+    {} as FormSchemaData & { paymentMethod: PaymentMethods }
+  );
 
-  useEffect(() => {
-    localStorage.setItem("@COFFEE", JSON.stringify(cart));
-  }, [cart]);
+  function handleFormData(data: FormSchemaData & { paymentMethod: PaymentMethods }) {
+    setFormData(data);
+
+    setCart([]);
+  }
 
   function addCoffeeToCart(coffee: Coffee) {
     setCart((state) => {
       const existingCoffe = state.find((item) => item.id === coffee.id);
-      const existingCoffeLocal = local.find((item) => item.id === coffee.id);
 
       if (!existingCoffe) {
         return [...state, coffee];
-      } else if (existingCoffeLocal) {
-        return state;
       }
 
       return state;
@@ -90,12 +95,15 @@ export function CheckoutContextProvider({ children }: CoffeesContextProviderProp
     <CheckoutContext.Provider
       value={{
         cart,
+        formData,
+        setCart,
         totalItems,
         addCoffeeToCart,
         removeCoffe,
         incrementAmountCoffe,
         handleAmountCoffe,
         decrementAmountCoffe,
+        handleFormData,
       }}
     >
       {children}

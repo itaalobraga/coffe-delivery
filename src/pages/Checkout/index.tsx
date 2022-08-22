@@ -20,8 +20,14 @@ import * as zod from "zod";
 import { CheckoutCard } from "./components/CheckoutCard";
 import { useCheckout } from "../../contexts/CheckoutContext";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../../components/Loading";
 
-type FormData = zod.infer<typeof FormValidationSchema>;
+export type FormSchemaData = zod.infer<typeof FormValidationSchema>;
+
+export type PaymentMethods = {
+  label: string;
+  value: string;
+};
 
 const regex = new RegExp(/[a-z]/i);
 
@@ -36,9 +42,11 @@ const FormValidationSchema = zod.object({
 });
 
 export function Checkout() {
-  const [paymentMethod, setPaymentMethod] = useState<null | string>(null);
+  const [paymentMethod, setPaymentMethod] = useState<null | PaymentMethods>(null);
 
-  const checkoutForm = useForm<FormData>({
+  const [loading, setLoading] = useState(false);
+
+  const checkoutForm = useForm<FormSchemaData>({
     resolver: zodResolver(FormValidationSchema),
     reValidateMode: "onBlur",
     mode: "all",
@@ -47,16 +55,27 @@ export function Checkout() {
     },
   });
 
-  const { formState, handleSubmit } = checkoutForm;
+  const { handleSubmit } = checkoutForm;
 
-  function handleSubmitForm(data: FormData) {
+  const navigate = useNavigate();
+
+  async function handleSubmitForm(data: FormSchemaData) {
     if (!paymentMethod) {
-      return console.log("informe um metodo de pagamento");
+      return;
     }
-    console.log("data => ", data);
+
+    setLoading(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    handleFormData({ ...data, paymentMethod });
+
+    setLoading(false);
+
+    navigate("/checkout/finish");
   }
 
-  const { cart, totalItems } = useCheckout();
+  const { cart, totalItems, handleFormData } = useCheckout();
 
   function convertPrices(value: number) {
     return new Intl.NumberFormat("pt-BR", {
@@ -67,14 +86,18 @@ export function Checkout() {
 
   const deliveryPrice = 3.5;
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (!cart.length) {
       navigate("/");
-      localStorage.removeItem("@COFFEE")
+      localStorage.removeItem("@COFFEE");
     }
   }, [cart.length]);
+
+  if (loading) return (
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh"}}>
+      <Loading />
+    </div>
+  );
 
   return (
     <CheckoutContainer onSubmit={handleSubmit(handleSubmitForm)}>
@@ -103,24 +126,28 @@ export function Checkout() {
           <Methods>
             <Method
               type="button"
-              isSelected={paymentMethod === "credit"}
-              onClick={() => setPaymentMethod("credit")}
+              isSelected={paymentMethod?.value === "credit"}
+              onClick={() =>
+                setPaymentMethod({ label: "Cartão de crédito", value: "credit" })
+              }
             >
               <CreditCard size={16} />
               <span>Cartão de crédito</span>
             </Method>
             <Method
               type="button"
-              isSelected={paymentMethod === "debit"}
-              onClick={() => setPaymentMethod("debit")}
+              isSelected={paymentMethod?.value === "debit"}
+              onClick={() =>
+                setPaymentMethod({ label: "Cartão de débito", value: "debit" })
+              }
             >
               <Money size={16} />
               <span>Cartão de débito</span>
             </Method>
             <Method
               type="button"
-              isSelected={paymentMethod === "money"}
-              onClick={() => setPaymentMethod("money")}
+              isSelected={paymentMethod?.value === "money"}
+              onClick={() => setPaymentMethod({ label: "Dinheiro", value: "money" })}
             >
               <Bank size={16} />
               <span>Dinheiro</span>
